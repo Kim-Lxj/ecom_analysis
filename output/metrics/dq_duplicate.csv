@@ -1,0 +1,10 @@
+﻿表名,主键,主键重复行数,完全重复行数
+platform,code,0,0
+order_status,code,0,0
+payment_method,code,0,0
+shipping_method,code,0,0
+user,global_user_id,0,0
+product,global_product_id,0,0
+user_behavior,behavior_id,0,0
+order,order_id,0,0
+order_item,order_item_id,0,0

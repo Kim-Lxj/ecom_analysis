@@ -1,0 +1,5 @@
+﻿scope_code,scope,behavior_order_users,order_users_any,order_users_completed,both_behavior_and_any,both_behavior_and_completed,behavior_only,order_only,behavior_match_any_pct,behavior_match_completed_pct
+ALL,全网,1953,4215,1643,1551,640,402,2664,79.42,32.77
+taobao,淘宝,622,1301,630,562,284,60,739,90.35,45.66
+jd,京东,661,1217,444,523,193,138,694,79.12,29.2
+douyin,抖音,670,1697,569,466,163,204,1231,69.55,24.33

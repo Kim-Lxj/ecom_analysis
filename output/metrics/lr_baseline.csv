@@ -1,0 +1,7 @@
+﻿model,features,feature_cnt,sample_n,pos_rate,train_auc
+随机基线(常数预测器理论值 0.5),无,0,2711,0.4725,0.5
+仅人口属性,age + gender_m + level_ord,3,2711,0.4725,0.5124
+仅平台,is_jd + is_douyin,2,2711,0.4725,0.5429
+仅意图(收藏+加购),收藏 + 加购,2,2711,0.4725,0.7702
+全集(9特征),age + gender_m + level_ord + 浏览 + 加购 + 收藏 + avg_duration + is_jd + is_douyin,9,2711,0.4725,0.7766
+全集去意图,age + gender_m + level_ord + 浏览 + avg_duration + is_jd + is_douyin,7,2711,0.4725,0.6492

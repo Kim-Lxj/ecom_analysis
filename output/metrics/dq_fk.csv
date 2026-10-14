@@ -1,0 +1,6 @@
+﻿relation_name,orphan_rows
+user_behavior->user,0
+user_behavior->product,0
+order->user,0
+order_item->order,0
+order_item->product,0

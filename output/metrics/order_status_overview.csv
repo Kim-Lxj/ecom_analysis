@@ -1,0 +1,6 @@
+﻿status_code,order_status,status_group,order_cnt,order_pct,user_cnt,amount_wan,amount_pct,avg_amount,avg_discount,avg_pay_lag_min
+pending,待付款,流失类,2224,20.23,1634,566.9,20.28,2549.19,380.91,32.41
+cancelled,已取消,流失类,2177,19.8,1648,547.2,19.57,2513.62,372.26,32.14
+paid,已付款,在途类,2192,19.93,1607,563.0,20.14,2568.56,385.18,32.62
+shipped,已发货,在途类,2187,19.89,1631,549.7,19.66,2513.42,369.63,31.84
+completed,已完成,已完成,2216,20.15,1643,569.2,20.36,2568.63,383.6,33.06

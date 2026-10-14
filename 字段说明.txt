@@ -1,0 +1,284 @@
+【CSV 数据文件与字段说明】
+
+【数据集总览】
+本数据集为电商运营分析系统的多平台业务模拟数据（如淘宝/京东/抖音等平台映射），覆盖用户、商品、行为、订单及订单明细，并包含站点登录账号表 auth_user。
+可用于教学演示、课程实验、数据分析建模、BI 可视化、数据仓库与 ETL 流程练习、用户行为分析与转化漏斗分析等场景。
+本数据集仅用于学习与学术研究，不代表真实平台生产数据，不应用于真实商业决策、对外经营披露或任何合规敏感用途。
+
+导出范围：业务主数据表（platform / user / order 等）+ 站点登录账号表 auth_user。不包含 django_migrations、django_session 等 Django 框架内嵌表，也不包含 auth_permission、auth_group 等权限扩展表。
+
+【重要】auth_user.csv 中的 password 列为「密码哈希」，不是登录时输入的明文。Django 使用单向算法（如 PBKDF2）存储密码，数据库中从不保存明文，因此无法导出「原始密码」；上传到数据平台时请将本列视为敏感信息，建议脱敏或仅作结构说明。
+
+每个「表名.csv」：第一行为字段名，从第二行起为数据。以下按文件说明各 CSV 及各字段含义。
+
+================================================================================
+
+## 文件：platform.csv
+    对应数据表（库内表名）：platform
+    表说明：销售平台配置表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · code  （MySQL 类型：varchar(20)） [主键]
+        含义：平台编码（主键），如 taobao、jd、douyin
+      · name  （MySQL 类型：varchar(50)）
+        含义：平台显示名称
+      · description  （MySQL 类型：varchar(200)）
+        含义：平台说明文案
+      · created_at  （MySQL 类型：datetime(6)）
+        含义：记录创建时间
+      · updated_at  （MySQL 类型：datetime(6)）
+        含义：记录最后更新时间
+
+--------------------------------------------------------------------------------
+
+## 文件：order_status.csv
+    对应数据表（库内表名）：order_status
+    表说明：订单状态字典表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · code  （MySQL 类型：varchar(20)） [主键]
+        含义：状态编码（主键）
+      · name  （MySQL 类型：varchar(50)）
+        含义：状态名称（如待付款、已完成）
+      · badge_class  （MySQL 类型：varchar(50)）
+        含义：前端徽章样式类名
+      · description  （MySQL 类型：varchar(200)）
+        含义：状态说明
+      · created_at  （MySQL 类型：datetime(6)）
+        含义：记录创建时间
+      · updated_at  （MySQL 类型：datetime(6)）
+        含义：记录最后更新时间
+
+--------------------------------------------------------------------------------
+
+## 文件：payment_method.csv
+    对应数据表（库内表名）：payment_method
+    表说明：支付方式字典表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · code  （MySQL 类型：varchar(20)） [主键]
+        含义：支付方式编码（主键）
+      · name  （MySQL 类型：varchar(50)）
+        含义：支付方式名称
+      · description  （MySQL 类型：varchar(200)）
+        含义：说明
+      · created_at  （MySQL 类型：datetime(6)）
+        含义：记录创建时间
+      · updated_at  （MySQL 类型：datetime(6)）
+        含义：记录最后更新时间
+
+--------------------------------------------------------------------------------
+
+## 文件：shipping_method.csv
+    对应数据表（库内表名）：shipping_method
+    表说明：配送方式字典表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · code  （MySQL 类型：varchar(20)） [主键]
+        含义：配送方式编码（主键）
+      · name  （MySQL 类型：varchar(50)）
+        含义：配送方式名称
+      · description  （MySQL 类型：varchar(200)）
+        含义：说明
+      · created_at  （MySQL 类型：datetime(6)）
+        含义：记录创建时间
+      · updated_at  （MySQL 类型：datetime(6)）
+        含义：记录最后更新时间
+
+--------------------------------------------------------------------------------
+
+## 文件：user.csv
+    对应数据表（库内表名）：user
+    表说明：用户主数据表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · global_user_id  （MySQL 类型：varchar(50)） [主键]
+        含义：全局用户唯一标识（主键），跨平台统一用户 ID
+      · platform_user_id  （MySQL 类型：varchar(50)）
+        含义：用户在具体平台上的原始用户 ID
+      · platform  （MySQL 类型：varchar(20)） [索引]
+        含义：所属平台编码，关联 platform.code
+      · user_name  （MySQL 类型：varchar(50)）
+        含义：用户昵称/姓名
+      · gender  （MySQL 类型：varchar(1)）
+        含义：性别：M 男 / F 女
+      · age  （MySQL 类型：int）
+        含义：年龄
+      · city  （MySQL 类型：varchar(50)）
+        含义：所在城市
+      · registration_date  （MySQL 类型：date）
+        含义：注册日期
+      · phone  （MySQL 类型：varchar(20)） [索引]
+        含义：手机号
+      · email  （MySQL 类型：varchar(100)） [索引]
+        含义：邮箱
+      · user_level  （MySQL 类型：varchar(20)）
+        含义：用户等级/会员等级
+
+--------------------------------------------------------------------------------
+
+## 文件：product.csv
+    对应数据表（库内表名）：product
+    表说明：商品主数据表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · global_product_id  （MySQL 类型：varchar(50)） [主键]
+        含义：全局商品唯一标识（主键）
+      · platform_product_id  （MySQL 类型：varchar(50)）
+        含义：平台上的商品 SKU/商品 ID
+      · platform  （MySQL 类型：varchar(20)） [索引]
+        含义：所属平台编码
+      · product_name  （MySQL 类型：varchar(200)） [索引]
+        含义：商品名称
+      · category  （MySQL 类型：varchar(50)） [索引]
+        含义：一级品类
+      · subcategory  （MySQL 类型：varchar(50)）
+        含义：子品类
+      · price  （MySQL 类型：decimal(10,2)）
+        含义：标价/参考单价（元）
+      · brand  （MySQL 类型：varchar(100)）
+        含义：品牌
+      · stock_status  （MySQL 类型：varchar(20)）
+        含义：库存状态描述
+      · tags  （MySQL 类型：longtext）
+        含义：标签串，多值常以逗号分隔
+
+--------------------------------------------------------------------------------
+
+## 文件：user_behavior.csv
+    对应数据表（库内表名）：user_behavior
+    表说明：用户行为明细表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · behavior_id  （MySQL 类型：int） [主键]
+        含义：行为记录自增主键
+      · global_user_id  （MySQL 类型：varchar(50)） [索引]
+        含义：用户 ID，关联 user.global_user_id
+      · global_product_id  （MySQL 类型：varchar(50)）
+        含义：商品 ID，关联 product.global_product_id
+      · platform  （MySQL 类型：varchar(20)） [索引]
+        含义：行为发生平台
+      · session_id  （MySQL 类型：varchar(100)）
+        含义：会话 ID，用于串联同一会话内行为
+      · behavior_type  （MySQL 类型：varchar(50)） [索引]
+        含义：行为类型（浏览、加购、下单等，与漏斗阶段一致）
+      · behavior_time  （MySQL 类型：datetime(6)） [索引]
+        含义：行为发生时间
+      · duration_seconds  （MySQL 类型：int）
+        含义：停留/持续时长（秒）
+      · page_url  （MySQL 类型：varchar(500)）
+        含义：页面 URL
+      · referrer  （MySQL 类型：varchar(500)）
+        含义：来源页/Referrer
+      · device_type  （MySQL 类型：varchar(50)）
+        含义：设备类型（移动端/PC 等）
+      · app_version  （MySQL 类型：varchar(50)）
+        含义：客户端版本号
+      · latitude  （MySQL 类型：decimal(9,6)）
+        含义：纬度（若采集）
+      · longitude  （MySQL 类型：decimal(9,6)）
+        含义：经度（若采集）
+      · extra_data  （MySQL 类型：longtext）
+        含义：扩展 JSON/文本字段
+
+--------------------------------------------------------------------------------
+
+## 文件：order.csv
+    对应数据表（库内表名）：order
+    表说明：订单主表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · order_id  （MySQL 类型：varchar(100)） [主键]
+        含义：订单号（主键）
+      · global_user_id  （MySQL 类型：varchar(50)） [索引]
+        含义：下单用户 ID，关联 user.global_user_id
+      · platform  （MySQL 类型：varchar(20)） [索引]
+        含义：下单平台编码
+      · order_time  （MySQL 类型：datetime(6)） [索引]
+        含义：下单时间
+      · payment_time  （MySQL 类型：datetime(6)）
+        含义：支付完成时间
+      · payment_method  （MySQL 类型：varchar(50)）
+        含义：支付方式名称/编码
+      · shipping_address  （MySQL 类型：longtext）
+        含义：收货地址全文
+      · order_status  （MySQL 类型：varchar(50)） [索引]
+        含义：订单状态名称，关联 order_status.name 或业务状态
+      · total_amount  （MySQL 类型：decimal(12,2)）
+        含义：订单应付总金额（元）
+      · discount_amount  （MySQL 类型：decimal(10,2)）
+        含义：优惠/折扣金额（元）
+      · shipping_fee  （MySQL 类型：decimal(8,2)）
+        含义：运费（元）
+      · tax_amount  （MySQL 类型：decimal(8,2)）
+        含义：税费（元）
+      · promotion_id  （MySQL 类型：varchar(100)）
+        含义：活动/促销 ID
+      · coupon_code  （MySQL 类型：varchar(50)）
+        含义：优惠券码
+      · shipping_method  （MySQL 类型：varchar(50)）
+        含义：配送方式
+
+--------------------------------------------------------------------------------
+
+## 文件：order_item.csv
+    对应数据表（库内表名）：order_item
+    表说明：订单明细行表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · order_item_id  （MySQL 类型：int） [主键]
+        含义：订单行自增主键
+      · order_id  （MySQL 类型：varchar(100)） [索引]
+        含义：所属订单号，关联 order.order_id
+      · global_product_id  （MySQL 类型：varchar(50)） [索引]
+        含义：商品 ID，关联 product.global_product_id
+      · quantity  （MySQL 类型：int）
+        含义：购买数量
+      · unit_price  （MySQL 类型：decimal(10,2)）
+        含义：成交单价（元）
+      · item_total  （MySQL 类型：decimal(12,2)）
+        含义：该行小计金额（元），一般=数量×单价
+      · sku_info  （MySQL 类型：longtext）
+        含义：SKU 规格等补充信息（文本）
+
+--------------------------------------------------------------------------------
+
+## 文件：auth_user.csv
+    对应数据表（库内表名）：auth_user
+    表说明：Django 管理员用户表
+    格式：第 1 行为列名，第 2 行起为数据行。
+
+    各字段说明：
+      · id  （MySQL 类型：int） [主键]
+        含义：用户主键
+      · password  （MySQL 类型：varchar(128)）
+        含义：登录密码经 Django 单向加密后的哈希串（非明文）；注册/登录时输入的原始密码不会存入数据库，亦无法从本列反推明文
+      · last_login  （MySQL 类型：datetime(6)）
+        含义：最后登录时间
+      · is_superuser  （MySQL 类型：tinyint(1)）
+        含义：是否超级管理员
+      · username  （MySQL 类型：varchar(150)） [唯一]
+        含义：登录用户名
+      · first_name  （MySQL 类型：varchar(150)）
+        含义：名
+      · last_name  （MySQL 类型：varchar(150)）
+        含义：姓
+      · email  （MySQL 类型：varchar(254)）
+        含义：邮箱
+      · is_staff  （MySQL 类型：tinyint(1)）
+        含义：是否可登录后台
+      · is_active  （MySQL 类型：tinyint(1)）
+        含义：是否启用
+      · date_joined  （MySQL 类型：datetime(6)）
+        含义：账号创建时间
+
+--------------------------------------------------------------------------------

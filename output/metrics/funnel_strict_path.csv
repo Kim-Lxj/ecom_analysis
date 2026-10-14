@@ -1,0 +1,5 @@
+﻿platform,browse_users,cart_strict_users,order_strict_users,pay_strict_users,browse_to_cart_pct,cart_to_order_pct,order_to_pay_pct,browse_to_pay_pct
+抖音,1124,718,387,258,63.88,53.9,66.67,22.95
+京东,742,454,262,176,61.19,57.71,67.18,23.72
+淘宝,845,568,356,240,67.22,62.68,67.42,28.4
+全网,2711,1740,1005,674,64.18,57.76,67.06,24.86

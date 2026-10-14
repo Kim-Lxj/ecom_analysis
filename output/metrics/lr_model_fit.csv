@@ -1,0 +1,2 @@
+﻿sample_n,pos_rate,train_accuracy,train_auc,note
+2711,0.4725,0.7149,0.7766,训练集（全样本）样本内评估，仅作特征方向验证，非泛化性能指标、不用于预测上线
